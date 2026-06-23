@@ -101,7 +101,7 @@ input:focus, select:focus, textarea:focus { outline: none; }
 <div class="mt-12 text-center text-on-surface-variant/40 font-label-mono text-[10px] uppercase leading-relaxed max-w-xl mx-auto">Compliance validated. These guidelines conform to global construction logistics policies.</div></main></div>
 <!-- ===== HOME PAGE ===== -->
 <div id="page-home">
-<nav class="backdrop-blur-xl w-full top-0 sticky z-50 transition-all duration-300 nav-glow bg-background/80 border-b border-outline-variant/30" id="mainNav">
+<nav class="backdrop-blur-xl w-full fixed top-0 z-50 transition-all duration-300 nav-glow bg-background/95 border-b border-outline-variant/30 shadow-lg" id="mainNav">
 <div class="flex justify-between items-center w-full px-6 sm:px-6 max-w-7xl mx-auto py-4">
 <a class="flex items-center gap-2.5 group transition-transform duration-300 hover:scale-[1.02]" href="#" onclick="showHome()">
 <img src="images/Foreman-AI_logo_3.png" alt="Foreman AI" class="h-10 w-auto" /></a>
@@ -122,7 +122,7 @@ input:focus, select:focus, textarea:focus { outline: none; }
 <a class="block text-on-surface-variant font-label-mono text-xs uppercase hover:text-brand-blue" href="#" onclick="closeMobileMenu()">Blog</a>
 <a class="block w-full text-center bg-brand-purple hover:bg-brand-blue text-white font-label-mono text-[11px] uppercase py-3 rounded-sm tracking-wider mt-6" href="#pricing" onclick="closeMobileMenu()">Start Free Trial</a></div></nav>
 
-<main class="flex-grow">
+<main class="flex-grow pt-[72px]">
 <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden border-b border-outline-variant scanlines px-4 sm:px-6">
 <div class="absolute inset-0 z-0">
 <img alt="Construction Site Dusk" class="absolute inset-0 w-full h-full object-cover object-bottom opacity-30 select-none pointer-events-none" src="images/hero-bg.jpg" />
@@ -322,8 +322,7 @@ input:focus, select:focus, textarea:focus { outline: none; }
 <div class="w-full min-h-[520px] bg-slate-950 rounded-xl overflow-hidden border border-brand-purple/30 relative flex flex-col md:flex-row shadow-2xl select-none" id="spline-3d-scene">
 <div class="absolute inset-0" style="background-image:linear-gradient(to right,#0c1324 1px,transparent 1px),linear-gradient(to bottom,#0c1324 1px,transparent 1px);background-size:20px 20px;pointer-events:none;opacity:0.4"></div>
 <div class="absolute inset-0" style="background:radial-gradient(ellipse at center,rgba(138,43,226,0.08),transparent 75%);pointer-events:none"></div>
-<div class="mobile-3d-notice fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-sm flex-col items-center justify-center p-8 text-center" style="display:none">
-<div class="max-w-xs"><span class="text-5xl block mb-6">&#128187;</span><h3 class="text-white font-bold text-lg mb-3">Rotate Your Device</h3><p class="text-slate-300 text-sm leading-relaxed mb-6">This interactive workspace works best in landscape orientation. Please rotate your phone or open on a larger screen.</p><div class="inline-flex items-center gap-2 text-slate-400 text-xs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg><span>Switch to landscape or use desktop</span></div></div></div>
+
 <div class="w-full md:w-64 bg-slate-900/90 border-r border-white/5 p-4 flex flex-col justify-between z-10 relative backdrop-blur-md">
 <div><div class="flex border-b border-white/5 mb-4 p-0.5 bg-black/40 rounded-md"><button onclick="set3DTab('palette')" class="tab-btn flex-1 py-1 px-1.5 text-[9px] font-label-mono uppercase tracking-wider text-center rounded-sm transition-all cursor-pointer bg-brand-purple text-white font-bold shadow-md" id="tab-palette">&#43; Spawner</button><button onclick="set3DTab('placed')" class="tab-btn flex-1 py-1 px-1.5 text-[9px] font-label-mono uppercase tracking-wider text-center rounded-sm transition-all cursor-pointer text-slate-400 hover:text-white" id="tab-placed">&#128203; Inspector (6)</button></div>
 <div id="palette-content"><p class="text-[10px] text-slate-400 leading-relaxed mb-3 uppercase font-semibold">Equipment Library</p>
