@@ -1,11 +1,17 @@
 // ===== Foreman AI - Interactive Script =====
 
 // --- Page Navigation ---
-function showHome() {
+function showHome(sectionId) {
   document.getElementById('page-home').style.display = 'block';
   ['legal-terms','legal-privacy','legal-policy'].forEach(id => {
     document.getElementById(id).style.display = 'none';
   });
+  if (sectionId) {
+    setTimeout(function() {
+      var el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
 }
 function showLegal(page) {
   document.getElementById('page-home').style.display = 'none';
