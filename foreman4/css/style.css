@@ -527,6 +527,12 @@ ul { list-style: none; }
 .opacity-75 { opacity: 0.75; }
 .opacity-80 { opacity: 0.8; }
 .opacity-90 { opacity: 0.9; }
+.object-cover { object-fit: cover; }
+.object-contain { object-fit: contain; }
+.object-fill { object-fit: fill; }
+.object-center { object-position: center; }
+.object-top { object-position: top; }
+.object-bottom { object-position: bottom; }
 
 /* ===== CURSORS ===== */
 .cursor-pointer { cursor: pointer; }
