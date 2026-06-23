@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
       updateEstimates();
     });
   }
+  renderTools();
   renderSuppliers();
   renderMarkers();
   renderGrid();
