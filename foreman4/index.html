@@ -198,8 +198,8 @@ input:focus, select:focus, textarea:focus { outline: none; }
 <button onclick="clearMarkers()" class="bg-transparent border border-red-500/30 hover:border-red-500 text-red-400 font-label-mono text-xs px-4 py-2 rounded-sm uppercase tracking-wider flex items-center gap-1.5 transition-colors hidden" id="clear-markers-btn">
 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Clear CAD Points (<span id="marker-count">0</span>)</button></div></div></div>
 <div class="mt-12 pt-12 border-t border-outline-variant/30">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8" id="estimates-panel">
-<div class="lg:col-span-7 space-y-6">
+<div class="flex flex-col lg:flex-row gap-8" id="estimates-panel">
+<div class="flex-1 lg:w-[60%] space-y-6">
 <div class="glass-panel p-6 rounded-lg border border-outline-variant/60">
 <div class="flex justify-between items-center mb-6"><h4 class="font-headline-lg text-lg text-white">Itemized Scope & Billings</h4><div class="text-[11px] font-label-mono text-brand-blue uppercase tracking-widest px-2 py-0.5 bg-brand-blue/10 border border-brand-blue/20 rounded-sm">Live Compiler (Active)</div></div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 pb-6 border-b border-outline-variant/40">
@@ -216,8 +216,8 @@ input:focus, select:focus, textarea:focus { outline: none; }
 <div><div class="flex justify-between text-xs font-label-mono text-on-surface-variant uppercase tracking-wider mb-2"><span>Active Labor Allocation</span><span class="text-white font-bold" id="labor-hours-label">14 Hrs</span></div><input type="range" min="2" max="120" value="14" class="w-full accent-brand-purple" id="labor-hours" oninput="updateEstimates()" /><span class="text-[10px] text-on-surface-variant block mt-1">Crew deployment factor including drive and safe layout.</span></div>
 <div><div class="flex justify-between text-xs font-label-mono text-on-surface-variant uppercase tracking-wider mb-2"><span>Hourly Crew Rate</span><span class="text-white font-bold" id="labor-rate-label">$85/Hr</span></div><input type="range" min="45" max="220" value="85" class="w-full accent-brand-blue" id="labor-rate" oninput="updateEstimates()" /><span class="text-[10px] text-on-surface-variant block mt-1">Master mechanic / foreman specialized local billing tariff.</span></div></div></div></div>
 
-<div class="lg:col-span-5">
-<div class="glass-panel p-6 rounded-lg border border-brand-purple/30 glow-primary flex flex-col h-full justify-between">
+<div class="lg:w-[40%] flex">
+<div class="glass-panel p-6 rounded-lg border border-brand-purple/30 glow-primary flex flex-col justify-between w-full">
 <div><div class="font-label-mono text-[10px] text-brand-purple uppercase tracking-widest mb-1 block">Active Contract Valuation</div><h3 class="font-headline-lg text-2xl text-white mb-6">Valuation Terminal</h3>
 <div class="space-y-3.5 border-b border-outline-variant/40 pb-6 mb-6">
 <div class="flex justify-between text-sm font-label-mono text-on-surface-variant"><span>Direct Materials:</span><span class="text-white font-bold" id="materials-cost">$0.00</span></div>
@@ -230,7 +230,7 @@ input:focus, select:focus, textarea:focus { outline: none; }
 <div class="text-center py-4 bg-surface-dim rounded-sm border border-outline-variant mb-6"><div class="text-[10px] font-label-mono uppercase tracking-widest text-on-surface-variant mb-1">Guaranteed Contract Total</div><div class="text-3xl font-bold font-headline-lg text-white" id="grand-total">$1,549.38</div></div></div>
 <div class="space-y-3">
 <button onclick="openProposal()" class="w-full bg-brand-purple hover:bg-brand-blue text-white font-label-mono text-xs py-3.5 rounded-sm uppercase tracking-widest font-bold transition-all flex items-center justify-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Review & Print Binding Contract</button>
-<button onclick="copyProposal()" class="w-full bg-transparent hover:bg-surface-variant border border-outline-variant text-white font-label-mono text-xs py-3 rounded-sm uppercase tracking-widest transition-colors flex items-center justify-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span id="copy-btn-text">Copy Proposal Text Output</span></button></div></div></div></div></div></div></section>
+<button onclick="copyProposal()" class="w-full bg-transparent hover:bg-surface-variant border border-outline-variant text-white font-label-mono text-xs py-3 rounded-sm uppercase tracking-widest transition-colors flex items-center justify-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span id="copy-btn-text">Copy Proposal Text Output</span></button></div></div></div></div></div></section>
 <section class="py-24 bg-background border-b border-outline-variant relative" id="procurement">
 <div class="max-w-7xl mx-auto px-6 sm:px-6">
 <div class="glass-panel p-6 rounded-lg border border-outline-variant/60" id="procurement-tracker">
