@@ -661,6 +661,11 @@ function set3DLayer(layer) {
   renderGrid();
 }
 
+function setEngineMode(mode) {
+  document.getElementById('engine-cad').className = 'px-2 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'cad' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
+  document.getElementById('engine-webgl').className = 'px-2 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'webgl' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
+}
+
 function setToolMode(mode) {
   appState.toolMode = mode;
   document.getElementById('tool-orbit').className = 'p-1.5 rounded-sm text-[9px] font-label-mono uppercase flex items-center gap-1 cursor-pointer transition-colors ' + (mode === 'orbit' ? 'bg-brand-purple text-white' : 'hover:bg-white/5 text-slate-400');
