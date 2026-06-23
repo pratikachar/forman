@@ -570,6 +570,10 @@ ul { list-style: none; }
 .hover\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2); }
 .hover\:shadow-none:hover { box-shadow: none; }
 .hover\:text-white:hover { color: #fff; }
+.hover\:text-brand-purple:hover { color: var(--color-brand-purple); }
+.hover\:text-brand-blue:hover { color: var(--color-brand-blue); }
+.hover\:border-brand-purple:hover { border-color: var(--color-brand-purple); }
+.hover\:border-brand-blue:hover { border-color: var(--color-brand-blue); }
 .hover\:opacity-100:hover { opacity: 1; }
 .hover\:opacity-80:hover { opacity: 0.8; }
 .group:hover .group-hover\:scale-\[1\.03\] { transform: scale(1.03); }
