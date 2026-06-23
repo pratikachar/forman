@@ -178,7 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // --- Zoom ---
 function zoomInBP() { appState.zoom = Math.min(200, appState.zoom + 20); updateZoom(); }
 function zoomOutBP() { appState.zoom = Math.max(50, appState.zoom - 20); updateZoom(); }
-function updateZoom() { document.getElementById('zoom-label').textContent = appState.zoom + '%'; }
+function updateZoom() {
+  document.getElementById('zoom-label').textContent = appState.zoom + '%';
+  const el = document.getElementById('zoom-content');
+  if (el) el.style.transform = 'scale(' + (appState.zoom / 100) + ')';
+}
 
 // --- File Upload ---
 function setupFileUpload() {
@@ -196,7 +200,8 @@ function setupFileUpload() {
           img.id = 'uploaded-blueprint';
           const existing = document.getElementById('uploaded-blueprint');
           if (existing) existing.remove();
-          canvas.insertBefore(img, canvas.querySelector('.z-5'));
+          const zoomContent = document.getElementById('zoom-content');
+          if (zoomContent) zoomContent.insertBefore(img, zoomContent.querySelector('.z-5'));
         };
         reader.readAsDataURL(file);
       }
