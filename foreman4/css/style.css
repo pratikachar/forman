@@ -432,6 +432,7 @@ ul { list-style: none; }
 .bg-red-950\/40 { background-color: rgba(69,10,10,0.4); }
 .bg-zinc-950 { background-color: #09090b; }
 .bg-transparent { background-color: transparent; }
+.bg-white { background-color: #fff; }
 .bg-white\/5 { background-color: rgba(255,255,255,0.05); }
 
 /* Gradients */
