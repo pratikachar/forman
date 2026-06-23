@@ -1,51 +1,39 @@
 # AI Project - Foreman
 
-## Project Status
-Complete static HTML/CSS/JS replica of the original React+Vite+Tailwind construction estimation app.
+## Current Branch
+- `edits` branch — active development in `foreman4/`
+- `master` branch — `foreman3/` backup (original static replica)
 
-## Directory Structure
-- `foreman/` — Original React+Vite+TypeScript + Tailwind v4 source (reference)
-- `foreman2/` — Previous static attempt
-- `foreman3/` — Complete faithful static replica (current working version)
-- `index.html` — Early Tailwind CDN-based version
-- `DESIGN.md` — Design notes
-- `social image/` — Social media assets
+## Foreman4 — Enhanced Version
 
-## Foreman3 — Static HTML Replica
-All 11 sections from the original React app faithfully replicated as vanilla HTML/CSS/JS:
+### What We've Done (chronological)
+- Moved layer toggles (electrical/plumbing/structural) from absolute inside canvas to static footer right side, vertical stack
+- Removed overlapping absolute toolbar positions — orbit/pan/auto stays top-right, footer is static
+- Added orbit/pan mouse drag handlers on `#spline-3d-canvas`
+- Fixed dark grid items (structural) — changed to amber tones
+- Removed "Slide/Pinch Or Zoom Scroll" hint text
+- Changed spawner icon from ◍ to +
+- Moved reset/zoom bar to static footer below canvas
+- Removed conduit SVG (dashed paths causing black triangles)
+- Added Spatial Workspace Engine Toggle (CAD/WebGL) in right toolbar
+- Mobile: removed hidden classes, mobile overlay, all mobile fallbacks
+- Changed nav from sticky to fixed top-0 with pt-[72px] offset
+- Added amber orientation tip under 3D section description
+- Added Spline Scene section from 21st.dev (serafim/splite) before footer
+  - Uses `@splinetool/runtime` vanilla JS via CDN dynamic import
+  - Canvas-based 3D viewer (not React, not web component)
+  - Structure: badge → gradient heading → description → 4 feature items → dependency badges → canvas
+  - Graceful fallback if scene URL fails
+  - Scene: NEXBOT robot character from community file `615b9422-9985-43f6-8593-d7d7bc3b0be1`
 
-| Section | Description |
-|---------|-------------|
-| Navigation | Sticky nav with logo, desktop links, mobile hamburger |
-| Hero | Scanlines, bg image, glowing orbs, CTA buttons, HUD stats |
-| Estimator | BlueprintTakeoff (trade switcher, markers) + EstimatorPanel (materials, labor, valuation) |
-| Procurement | Supplier cards with search, filter, stock status |
-| Features Bento | 3-cell bento grid with images |
-| Automation | Splite before/after slider + 3-step process |
-| Trade Pillars | 4 cards with gradient tops |
-| Pricing | Monthly/Annual toggle, 3 tiers |
-| Contact | Name/email, package select, captcha, progress logs |
-| 3D Spatial Twin | Sidebar palette, 4x4 grid, BOM quote modal |
-| Footer | Back-to-top, social links, legal links |
+### Key Decisions
+- Fixed nav instead of sticky to avoid mobile browser quirks
+- Removed all mobile-specific overlays/fallbacks — simple orientation text tip instead
+- Spline Scene uses `@splinetool/runtime` Application class directly (same engine as React component, no React)
 
-### Files
-- `foreman3/index.html` — 112KB static HTML
-- `foreman3/css/style.css` — 30KB utility + component CSS
-- `foreman3/js/script.js` — 45KB interactive JS
-- `foreman3/images/` — 3 downloaded images
-
-### Interactive Features
-- Marker placement/zoom on blueprint canvas
-- Real-time estimate calculations (materials + labor + markup + tax)
-- Proposal modal with copy/print
-- Supplier search/filter/procurement
-- 3D grid: place/select/move/delete items, auto-orbit, zoom
-- Splite slider drag
-- Contact form with math captcha + progress simulation
-- Pricing toggle (monthly/annually)
-- Mobile menu, back-to-top, legal page navigation
+### Known Issues
+- Spline scene URL might not work (community UUID ≠ scene export hash)
+- Lots of missing Tailwind utility classes — added manually to CSS as needed
 
 ## Next Steps
-- Edit features in `foreman3/` (backup current to git branch first)
-- Create new git branches for experimental changes
-- Deploy to GitHub Pages or Vercel
+- (waiting for user instruction)
