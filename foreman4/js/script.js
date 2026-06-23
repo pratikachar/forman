@@ -653,10 +653,10 @@ function set3DLayer(layer) {
   }
   document.querySelectorAll('#layer-electrical, #layer-plumbing, #layer-structural').forEach(b => {
     if (b.id === 'layer-' + layer) {
-        b.className = 'px-2 py-0.5 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' +
+        b.className = 'px-2 py-1 sm:py-0.5 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' +
           (layer === 'electrical' ? 'border-brand-purple bg-brand-purple/15 text-white' : layer === 'plumbing' ? 'border-brand-blue bg-brand-blue/15 text-white' : 'border-slate-500 bg-slate-500/15 text-white');
     } else {
-      b.className = 'px-2 py-0.5 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer border-white/5 hover:border-white/10 text-slate-400 bg-black/40';
+      b.className = 'px-2 py-1 sm:py-0.5 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer border-white/5 hover:border-white/10 text-slate-400 bg-black/40';
     }
   });
   renderGrid();

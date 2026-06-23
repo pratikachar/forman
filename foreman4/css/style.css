@@ -703,6 +703,9 @@ input:focus, select:focus, textarea:focus {
 .accent-brand-purple { accent-color: var(--color-brand-purple); }
 .accent-brand-blue { accent-color: var(--color-brand-blue); }
 
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
 /* ===== RESPONSIVE ===== */
 @media (min-width: 640px) {
   .sm\:inline-flex { display: inline-flex; }
