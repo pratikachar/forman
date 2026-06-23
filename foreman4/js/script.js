@@ -173,7 +173,47 @@ document.addEventListener('DOMContentLoaded', function() {
   generateCaptcha();
   startAutoOrbit();
   setupFileUpload();
+  setupSpliteSlider();
 });
+
+// --- Splite Slider ---
+function setupSpliteSlider() {
+  const container = document.getElementById('splite-container');
+  if (!container) return;
+  const right = document.getElementById('splite-right');
+  const handle = document.getElementById('splite-handle');
+  let dragging = false;
+
+  function setPos(pct) {
+    pct = Math.max(5, Math.min(95, pct));
+    if (right) right.style.clipPath = 'polygon(' + pct + '% 0, 100% 0, 100% 100%, ' + pct + '% 100%)';
+    if (handle) handle.style.left = pct + '%';
+  }
+
+  function onStart(e) {
+    dragging = true;
+    const rect = container.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    setPos(((clientX - rect.left) / rect.width) * 100);
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    e.preventDefault();
+    const rect = container.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    setPos(((clientX - rect.left) / rect.width) * 100);
+  }
+
+  function onEnd() { dragging = false; }
+
+  container.addEventListener('mousedown', onStart);
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onEnd);
+  container.addEventListener('touchstart', onStart, { passive: true });
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend', onEnd);
+}
 
 // --- Zoom ---
 function zoomInBP() { appState.zoom = Math.min(200, appState.zoom + 20); updateZoom(); }
