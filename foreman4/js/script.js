@@ -180,15 +180,19 @@ document.addEventListener('DOMContentLoaded', function() {
 function setupSpliteSlider() {
   const container = document.getElementById('splite-container');
   if (!container) return;
+  const left = document.getElementById('splite-left');
   const right = document.getElementById('splite-right');
   const handle = document.getElementById('splite-handle');
   let dragging = false;
 
   function setPos(pct) {
     pct = Math.max(5, Math.min(95, pct));
+    if (left) left.style.clipPath = 'polygon(0 0, ' + pct + '% 0, ' + pct + '% 100%, 0 100%)';
     if (right) right.style.clipPath = 'polygon(' + pct + '% 0, 100% 0, 100% 100%, ' + pct + '% 100%)';
     if (handle) handle.style.left = pct + '%';
   }
+
+  setPos(50);
 
   function onStart(e) {
     dragging = true;
