@@ -172,12 +172,37 @@ document.addEventListener('DOMContentLoaded', function() {
   updateEstimates();
   generateCaptcha();
   startAutoOrbit();
+  setupFileUpload();
 });
 
 // --- Zoom ---
 function zoomInBP() { appState.zoom = Math.min(200, appState.zoom + 20); updateZoom(); }
 function zoomOutBP() { appState.zoom = Math.max(50, appState.zoom - 20); updateZoom(); }
 function updateZoom() { document.getElementById('zoom-label').textContent = appState.zoom + '%'; }
+
+// --- File Upload ---
+function setupFileUpload() {
+  const input = document.getElementById('file-upload');
+  const canvas = document.getElementById('blueprint-canvas');
+  if (input && canvas) {
+    input.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          const img = document.createElement('img');
+          img.src = ev.target.result;
+          img.className = 'absolute inset-0 w-full h-full object-contain z-[1] pointer-events-none';
+          img.id = 'uploaded-blueprint';
+          const existing = document.getElementById('uploaded-blueprint');
+          if (existing) existing.remove();
+          canvas.insertBefore(img, canvas.querySelector('.z-5'));
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+}
 
 // --- Markers ---
 function renderMarkers() {
