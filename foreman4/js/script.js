@@ -664,8 +664,8 @@ function set3DLayer(layer) {
 
 function setEngineMode(mode) {
   appState.engineMode = mode;
-  document.getElementById('engine-cad').className = 'px-2 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'cad' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
-  document.getElementById('engine-webgl').className = 'px-2 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'webgl' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
+  document.getElementById('engine-cad').className = 'px-1.5 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'cad' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
+  document.getElementById('engine-webgl').className = 'px-1.5 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'webgl' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
   var grid = document.getElementById('spline-grid');
   var scene = document.getElementById('spline-3d-scene');
   var transform = document.getElementById('spline-transform');
