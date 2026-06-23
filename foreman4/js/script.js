@@ -182,7 +182,19 @@ document.addEventListener('DOMContentLoaded', function() {
   setupFileUpload();
   setupSpliteSlider();
   setup3DCanvasDrag();
+  checkMobileOverlay();
+  window.addEventListener('resize', checkMobileOverlay);
 });
+
+function checkMobileOverlay() {
+  var el = document.querySelector('.mobile-3d-notice');
+  if (!el) return;
+  if (window.innerWidth < 768) {
+    el.style.display = 'flex';
+  } else {
+    el.style.display = 'none';
+  }
+}
 
 // --- Splite Slider ---
 function setupSpliteSlider() {

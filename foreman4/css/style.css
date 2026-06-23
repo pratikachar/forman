@@ -706,14 +706,6 @@ input:focus, select:focus, textarea:focus {
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
-/* ===== MOBILE OVERLAY ===== */
-@media (max-width: 639px) {
-  .mobile-3d-notice { display: flex !important; }
-}
-@media (min-width: 640px) {
-  .mobile-3d-notice { display: none !important; }
-}
-
 /* ===== RESPONSIVE ===== */
 @media (min-width: 640px) {
   .sm\:inline-flex { display: inline-flex; }
