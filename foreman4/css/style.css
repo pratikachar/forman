@@ -702,6 +702,7 @@ input:focus, select:focus, textarea:focus {
   .sm\:text-2xl { font-size: 1.5rem; }
   .sm\:text-4xl { font-size: 2.25rem; }
   .sm\:hidden { display: none; }
+  .sm\:w-1\/2 { width: 50%; }
 }
 
 @media (min-width: 768px) {
