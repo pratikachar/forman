@@ -662,19 +662,10 @@ function set3DLayer(layer) {
   renderGrid();
 }
 
-function toggleMobileMenu() {
-  var d = document.getElementById('mobile-more-dropdown');
-  if (d) d.classList.toggle('hidden');
-}
-
 function setEngineMode(mode) {
   appState.engineMode = mode;
   document.getElementById('engine-cad').className = 'px-1.5 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'cad' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
   document.getElementById('engine-webgl').className = 'px-1.5 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'webgl' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
-  var cm = document.getElementById('engine-cad-mobile');
-  var wm = document.getElementById('engine-webgl-mobile');
-  if (cm) cm.className = 'px-2 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'cad' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
-  if (wm) wm.className = 'px-2 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'webgl' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
   var grid = document.getElementById('spline-grid');
   var scene = document.getElementById('spline-3d-scene');
   var transform = document.getElementById('spline-transform');
@@ -698,10 +689,7 @@ function setToolMode(mode) {
 
 function toggleAutoOrbit() {
   appState.isOrbiting = !appState.isOrbiting;
-  var aClass = 'p-1.5 rounded-sm text-[9px] font-label-mono uppercase flex items-center gap-1 cursor-pointer transition-colors ' + (appState.isOrbiting ? 'bg-emerald-600 text-white' : 'hover:bg-white/5 text-slate-500');
-  document.getElementById('tool-auto').className = aClass;
-  var am = document.getElementById('tool-auto-mobile');
-  if (am) am.className = aClass + ' w-full justify-start';
+  document.getElementById('tool-auto').className = 'p-1.5 rounded-sm text-[9px] font-label-mono uppercase flex items-center gap-1 cursor-pointer transition-colors ' + (appState.isOrbiting ? 'bg-emerald-600 text-white' : 'hover:bg-white/5 text-slate-500');
   document.getElementById('tool-auto-label').textContent = appState.isOrbiting ? 'Auto' : 'Auto';
   if (appState.isOrbiting) startAutoOrbit();
   else if (appState.autoOrbitInterval) { clearInterval(appState.autoOrbitInterval); appState.autoOrbitInterval = null; }
