@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
   startAutoOrbit();
   setupFileUpload();
   setupSpliteSlider();
+  setup3DCanvasDrag();
 });
 
 // --- Splite Slider ---
@@ -701,7 +702,7 @@ function renderGrid() {
       cell.innerHTML = '<span class="absolute top-1 left-1 text-[6px] font-mono text-slate-700 pointer-events-none">' + c + ',' + r + '</span>';
       if (placed) {
         const sel = appState.selectedPlacedId === placed.id;
-        cell.innerHTML += `<div class="absolute w-10 h-10 rounded flex flex-col items-center justify-center transition-all ${sel ? 'bg-brand-purple text-white border border-brand-purple animate-pulse' : placed.type === 'electrical' ? 'bg-brand-purple/20 text-brand-purple border border-brand-purple/40' : placed.type === 'plumbing' ? 'bg-brand-blue/20 text-brand-blue border border-brand-blue/40' : 'bg-slate-800/40 text-slate-300 border border-slate-500/30'}" style="${sel ? 'box-shadow:0 0 15px rgba(138,43,226,0.6)' : ''}"><span class="text-sm select-none pointer-events-none">${placed.modelSymbol}</span><span class="text-[6px] font-mono text-white/80 uppercase tracking-tighter truncate max-w-full px-0.5 select-none pointer-events-none">${placed.name.split(' ')[0]}</span></div>`;
+        cell.innerHTML += `<div class="absolute w-10 h-10 rounded flex flex-col items-center justify-center transition-all ${sel ? 'bg-brand-purple text-white border border-brand-purple animate-pulse' : placed.type === 'electrical' ? 'bg-brand-purple/20 text-brand-purple border border-brand-purple/40' : placed.type === 'plumbing' ? 'bg-brand-blue/20 text-brand-blue border border-brand-blue/40' : 'bg-amber-500/20 text-amber-400 border border-amber-500/40'}" style="${sel ? 'box-shadow:0 0 15px rgba(138,43,226,0.6)' : ''}"><span class="text-sm select-none pointer-events-none">${placed.modelSymbol}</span><span class="text-[6px] font-mono text-white/80 uppercase tracking-tighter truncate max-w-full px-0.5 select-none pointer-events-none">${placed.name.split(' ')[0]}</span></div>`;
       }
       grid.appendChild(cell);
     }
@@ -798,6 +799,72 @@ function update3DTransform() {
 function reset3DView() { appState.rotation = -35; appState.elevation = 30; appState.scale = 1; appState.panX = 0; appState.panY = 0; update3DTransform(); }
 function zoom3DIn() { appState.scale = Math.min(2.5, appState.scale + 0.1); update3DTransform(); document.getElementById('zoom-3d-label').textContent = Math.round(appState.scale * 100) + '%'; }
 function zoom3DOut() { appState.scale = Math.max(0.4, appState.scale - 0.1); update3DTransform(); document.getElementById('zoom-3d-label').textContent = Math.round(appState.scale * 100) + '%'; }
+
+// --- 3D Orbit/Pan Drag ---
+function setup3DCanvasDrag() {
+  var canvas = document.getElementById('spline-3d-canvas');
+  if (!canvas) return;
+  var dragging = false, lastX = 0, lastY = 0;
+  var tweenId = null;
+
+  function onDown(e) {
+    dragging = true;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    canvas.style.cursor = appState.toolMode === 'orbit' ? 'grabbing' : 'grabbing';
+    if (tweenId) { cancelAnimationFrame(tweenId); tweenId = null; }
+    if (appState.isOrbiting) { toggleAutoOrbit(); }
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    var dx = e.clientX - lastX;
+    var dy = e.clientY - lastY;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    if (appState.toolMode === 'orbit') {
+      appState.rotation = (appState.rotation + dx * 0.5) % 360;
+      appState.elevation = Math.max(-90, Math.min(90, appState.elevation - dy * 0.5));
+    } else if (appState.toolMode === 'pan') {
+      appState.panX += dx * (2 / appState.scale);
+      appState.panY += dy * (2 / appState.scale);
+    }
+    update3DTransform();
+  }
+
+  function onUp() {
+    dragging = false;
+    canvas.style.cursor = appState.toolMode === 'orbit' ? 'grab' : 'grab';
+  }
+
+  canvas.addEventListener('mousedown', onDown);
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+  canvas.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      dragging = true;
+      lastX = e.touches[0].clientX;
+      lastY = e.touches[0].clientY;
+      if (appState.isOrbiting) { toggleAutoOrbit(); }
+    }
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e) {
+    if (!dragging || e.touches.length !== 1) return;
+    var dx = e.touches[0].clientX - lastX;
+    var dy = e.touches[0].clientY - lastY;
+    lastX = e.touches[0].clientX;
+    lastY = e.touches[0].clientY;
+    if (appState.toolMode === 'orbit') {
+      appState.rotation = (appState.rotation + dx * 0.5) % 360;
+      appState.elevation = Math.max(-90, Math.min(90, appState.elevation - dy * 0.5));
+    } else if (appState.toolMode === 'pan') {
+      appState.panX += dx * (2 / appState.scale);
+      appState.panY += dy * (2 / appState.scale);
+    }
+    update3DTransform();
+  }, { passive: true });
+  document.addEventListener('touchend', function() { dragging = false; }, { passive: true });
+}
 
 // --- 3D Quote Modal ---
 function open3DQuote() {
