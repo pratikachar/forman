@@ -708,10 +708,10 @@ input:focus, select:focus, textarea:focus {
 
 /* ===== MOBILE OVERLAY ===== */
 @media (max-width: 639px) {
-  .mobile-3d-notice { display: flex; }
+  .mobile-3d-notice { display: flex !important; }
 }
 @media (min-width: 640px) {
-  .mobile-3d-notice { display: none; }
+  .mobile-3d-notice { display: none !important; }
 }
 
 /* ===== RESPONSIVE ===== */
