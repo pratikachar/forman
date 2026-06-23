@@ -344,11 +344,70 @@ function openProposal() {
   const itemsList = document.getElementById('prop-items-list');
   itemsList.innerHTML = '';
   Object.values(compiled).concat(appState.manualItems.map(i => ({ name: i.name, qty: i.quantity, price: i.unitPrice }))).forEach(item => {
-    itemsList.innerHTML += `<div class="flex justify-between py-2 items-center text-on-surface-variant"><span>${item.name}</span><div class="flex gap-8"><span>${item.qty} units</span><span class="text-white font-semibold">$${(item.qty * item.price).toFixed(2)}</span></div></div>`;
+    itemsList.innerHTML += '<div class="flex justify-between py-2 items-center text-on-surface-variant"><span>' + item.name + '</span><div class="flex gap-8"><span>' + item.qty + ' units</span><span class="text-white font-semibold">$' + (item.qty * item.price).toFixed(2) + '</span></div></div>';
   });
-  itemsList.innerHTML += `<div class="flex justify-between py-2 items-center text-on-surface-variant font-bold border-t border-brand-purple/20 pt-2"><span>Labor Duration Component (${appState.laborHours} hours @ $${appState.laborRate}/hr)</span><span class="text-white">$${laborCost.toFixed(2)}</span></div>`;
+  itemsList.innerHTML += '<div class="flex justify-between py-2 items-center text-on-surface-variant font-bold border-t border-brand-purple/20 pt-2"><span>Labor Duration Component (' + appState.laborHours + ' hours @ $' + appState.laborRate + '/hr)</span><span class="text-white">$' + laborCost.toFixed(2) + '</span></div>';
 
   document.getElementById('proposal-modal').classList.remove('hidden');
+}
+
+function printProposal() {
+  const client = document.getElementById('prop-client').textContent;
+  const project = document.getElementById('prop-project').textContent;
+  const date = document.getElementById('prop-date').textContent;
+  const hash = document.getElementById('prop-hash').textContent;
+  const itemsHtml = document.getElementById('prop-items-list').innerHTML;
+  const materials = document.getElementById('prop-materials').textContent;
+  const labor = document.getElementById('prop-labor').textContent;
+  const markupPct = document.getElementById('prop-markup-pct').textContent;
+  const markup = document.getElementById('prop-markup').textContent;
+  const taxPct = document.getElementById('prop-tax-pct').textContent;
+  const tax = document.getElementById('prop-tax').textContent;
+  const total = document.getElementById('prop-total').textContent;
+
+  const win = window.open('', '_blank');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Foreman AI - Binding Proposal</title><style>');
+  win.document.write('body{font-family:monospace;padding:40px;color:#111;max-width:800px;margin:0 auto;}');
+  win.document.write('h1{font-size:24px;font-weight:900;border-bottom:4px solid #4f3a96;padding-bottom:12px;}');
+  win.document.write('.sub{color:#666;font-size:11px;text-transform:uppercase;letter-spacing:1px;}');
+  win.document.write('.info{display:flex;justify-content:space-between;font-size:12px;margin:16px 0;padding-bottom:12px;border-bottom:1px solid #ddd;}');
+  win.document.write('table{width:100%;border-collapse:collapse;font-size:12px;margin:16px 0;}');
+  win.document.write('td,th{padding:8px 4px;border-bottom:1px solid #eee;text-align:left;}');
+  win.document.write('th{color:#4f3a96;text-transform:uppercase;font-size:10px;letter-spacing:1px;}');
+  win.document.write('.summary{background:#f5f3ff;padding:16px;border-radius:4px;font-size:12px;margin:16px 0;}');
+  win.document.write('.summary div{display:flex;justify-content:space-between;padding:4px 0;}');
+  win.document.write('.total{font-size:18px;font-weight:900;color:#4f3a96;text-align:center;padding:16px;border:2px solid #4f3a96;margin:16px 0;}');
+  win.document.write('.sig{display:flex;justify-content:space-between;margin-top:32px;padding-top:16px;border-top:1px solid #ddd;}');
+  win.document.write('.sig div{width:45%;border-bottom:1px solid #333;padding-bottom:8px;font-size:10px;text-transform:uppercase;color:#666;}');
+  win.document.write('@media print{body{padding:20px;}}');
+  win.document.write('</style></head><body>');
+  win.document.write('<h1>FOREMAN AI INC.</h1>');
+  win.document.write('<p class="sub">Live Field Generated Bidding Agreement</p>');
+  win.document.write('<div class="info"><div><strong>CONTRACTOR:</strong> FOREMAN AUTOMATIC SYSTEM CLIENT<br>LICENSE #GC-901844-EL</div><div style="text-align:right"><strong>DATE:</strong> ' + date + '<br><strong>HASH:</strong> #BID-' + hash + '<br><strong>STATUS:</strong> BINDING / PRE-APPROVED</div></div>');
+  win.document.write('<div class="info"><div><strong>CLIENT:</strong> ' + client + '</div><div><strong>PROJECT:</strong> ' + project + '</div></div>');
+  win.document.write('<h4 style="color:#4f3a96;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-top:24px;">ITEMIZED DISPOSITION</h4>');
+  win.document.write('<table><thead><tr><th>Item</th><th>Qty</th><th style="text-align:right">Amount</th></tr></thead><tbody>');
+  const rows = itemsHtml.match(/<div class="flex justify-between py-2[^>]*>.*?<\/div><\/div>/g) || [];
+  rows.forEach(function(r) {
+    const nameMatch = r.match(/<span>([^<]*)<\/span><div class="flex gap-8">/);
+    const qtyMatch = r.match(/<span>([0-9.]+) units<\/span>/);
+    const amtMatch = r.match(/<span class="text-white font-semibold">\$([0-9,.]+)<\/span>/);
+    if (nameMatch || r.includes('Labor Duration')) {
+      const label = r.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      win.document.write('<tr><td>' + label + '</td><td></td><td style="text-align:right"></td></tr>');
+    } else if (nameMatch) {
+      win.document.write('<tr><td>' + nameMatch[1] + '</td><td>' + (qtyMatch ? qtyMatch[1] : '') + '</td><td style="text-align:right">' + (amtMatch ? '$' + amtMatch[1] : '') + '</td></tr>');
+    }
+  });
+  win.document.write('</tbody></table>');
+  win.document.write('<div class="summary"><div><span>Materials Subtotal:</span><span>' + materials + '</span></div><div><span>Crew Deployment & Labor:</span><span>' + labor + '</span></div><div><span>Adjustment Factor (' + markupPct + '% Markup):</span><span>' + markup + '</span></div><div><span>Tax Surcharge (' + taxPct + '%):</span><span>' + tax + '</span></div></div>');
+  win.document.write('<div class="total">BINDING CONTRACT SUM: ' + total + '</div>');
+  win.document.write('<p style="font-size:10px;color:#999;">*LEGALLY BINDING STATEMENT: This proposal presents a live price calculated using supplier API linkages. Sourced raw resources are locked in inventory for 24 hours from timestamp above. Authorized signers acknowledge prices are valid and complete upon mutual transmission.</p>');
+  win.document.write('<div class="sig"><div>CREW REPRESENTATIVE</div><div>CLIENT AUTHORIZATION</div></div>');
+  win.document.write('</body></html>');
+  win.document.close();
+  win.focus();
+  setTimeout(function() { win.print(); }, 500);
 }
 
 function closeProposal() { document.getElementById('proposal-modal').classList.add('hidden'); }
