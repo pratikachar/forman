@@ -81,7 +81,8 @@ const appState = {
   scale: 1,
   panX: 0,
   panY: 0,
-  autoOrbitInterval: null
+  autoOrbitInterval: null,
+  engineMode: 'cad'
 };
 
 const ITEM_PRICES = { 'CHASSIS PANEL': 245, 'JUNCTION HUB': 85, 'PRESSURE VALVE': 120, 'PUMP ACTUATOR': 350, 'STEEL COLUMN': 410, 'I-BEAM JOIST': 195 };
@@ -662,8 +663,22 @@ function set3DLayer(layer) {
 }
 
 function setEngineMode(mode) {
+  appState.engineMode = mode;
   document.getElementById('engine-cad').className = 'px-2 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'cad' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
   document.getElementById('engine-webgl').className = 'px-2 py-1 text-[8px] font-label-mono rounded-sm border uppercase transition-all cursor-pointer ' + (mode === 'webgl' ? 'border-brand-purple bg-brand-purple/15 text-white' : 'border-white/5 hover:border-white/10 text-slate-400 bg-black/40');
+  var grid = document.getElementById('spline-grid');
+  var scene = document.getElementById('spline-3d-scene');
+  var transform = document.getElementById('spline-transform');
+  if (mode === 'cad') {
+    if (appState.isOrbiting) toggleAutoOrbit();
+    if (transform) transform.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1) translate3d(0px,0px,0px)';
+    if (grid) grid.className = 'w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] border-2 border-brand-blue/30 bg-brand-blue/10 relative flex flex-wrap';
+    if (scene) scene.className = 'w-full min-h-[520px] bg-slate-950 rounded-xl overflow-hidden border border-brand-blue/30 relative flex flex-col md:flex-row shadow-2xl select-none';
+  } else {
+    if (transform) transform.style.transform = 'perspective(1000px) rotateX(30deg) rotateY(-35deg) scale(1) translate3d(0px,0px,0px)';
+    if (grid) grid.className = 'w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] border-2 border-brand-purple/20 bg-slate-900/40 relative flex flex-wrap';
+    if (scene) scene.className = 'w-full min-h-[520px] bg-slate-950 rounded-xl overflow-hidden border border-brand-purple/30 relative flex flex-col md:flex-row shadow-2xl select-none';
+  }
 }
 
 function setToolMode(mode) {
